@@ -1,4 +1,5 @@
 using CubeShift.Core;
+using CubeShift.LevelDesign;
 using CubeShift.Player;
 using UnityEngine;
 
@@ -35,6 +36,21 @@ namespace CubeShift.Tiles
             }
 
             levelManager = manager;
+
+            bool canComplete = manager.CanCompleteActiveLevel();
+            if (canComplete)
+            {
+                Debug.Log("[GoalTile] CanCompleteLevel=True -> CompleteLevel()", this);
+            }
+            else
+            {
+                var activeLevel = manager.ActiveLevel;
+                var completed   = manager.CompletedObjectives;
+                var required    = activeLevel != null ? activeLevel.RequiredObjectives : LevelObjective.None;
+                var missing     = required & ~completed;
+                Debug.Log($"[GoalTile] CanCompleteLevel=False | Required={required} | Completed={completed} | Missing={missing}", this);
+            }
+
             manager.CompleteLevel();
         }
     }

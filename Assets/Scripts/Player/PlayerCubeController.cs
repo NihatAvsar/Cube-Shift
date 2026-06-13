@@ -1,4 +1,5 @@
 using System.Collections;
+using CubeShift.Audio;
 using CubeShift.Core;
 using CubeShift.Tiles;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace CubeShift.Player
         private bool isFalling;
         private readonly RaycastHit[] groundHits = new RaycastHit[MaxGroundHits];
         private Vector2Int lastMoveDirection;
+        private TileBase currentTile;
 
         public bool IsMoving => isMoving;
         public bool IsFalling => isFalling;
@@ -117,6 +119,7 @@ namespace CubeShift.Player
             isMoving = false;
             isFalling = false;
             lastMoveDirection = Vector2Int.zero;
+            currentTile = null;
             transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
 
             if (faceTracker != null)
@@ -222,11 +225,24 @@ namespace CubeShift.Player
 
             if (tile == null)
             {
+                NotifyTileLeft(null);
                 StartFallAndRestart();
                 return;
             }
 
+            NotifyTileLeft(tile);
+            currentTile = tile;
             tile.OnPlayerLanded(this);
+        }
+
+        private void NotifyTileLeft(TileBase landingTile)
+        {
+            if (currentTile == null || currentTile == landingTile)
+            {
+                return;
+            }
+
+            currentTile.OnPlayerLeft(this);
         }
 
         private bool CanEnterNextCell(Vector2Int direction)
@@ -246,7 +262,7 @@ namespace CubeShift.Player
 
             float targetPlayerY = targetTile.transform.position.y + cubeSize * 0.5f + 0.1f;
             float heightDifference = (targetPlayerY - transform.position.y) / tileSize;
-            if (heightDifference > 1.01f || heightDifference < -1.01f || !targetTile.CanPlayerEnter(this))
+            if (heightDifference > 1.01f || heightDifference < -1.01f || !targetTile.CanEnter(this))
             {
                 targetPosition = transform.position;
                 return false;
@@ -329,6 +345,7 @@ namespace CubeShift.Player
                 return;
             }
 
+            CubeShiftAudio.Instance.PlayFall();
             StartCoroutine(FallAndRestartRoutine());
         }
 

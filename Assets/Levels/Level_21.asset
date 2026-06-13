@@ -1,0 +1,487 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_21
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_21
+  width: 24
+  height: 14
+  tileSize: 1
+  startPosition: {x: 1, y: 6}
+  requiredObjectives: 2
+  tiles:
+  - coordinate: {x: 5, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 3}
+    tileType: 6
+    linkId: Y21
+    heightLevel: 0
+    requiredFace: 6
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 1, y: 6}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 2, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 4, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 11, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 12, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 13, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 14, y: 6}
+    tileType: 7
+    linkId: Y21
+    heightLevel: 0
+    requiredFace: 6
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 19, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 20, y: 6}
+    tileType: 7
+    linkId: G21
+    heightLevel: 0
+    requiredFace: 3
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 21, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 6}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 13, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 4, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 13, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 13, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 14, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 15, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 9}
+    tileType: 6
+    linkId: G21
+    heightLevel: 0
+    requiredFace: 3
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 17, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 15, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 17, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  notes: 'Level adi: Level_21
+
+    Boyut: 24x14
+
+    Zorluk: Renk kilidi tanitim
+
+    Mekanik
+    ozeti: Renkli kup ve iki renkli kilit tanitilir: yellow sonra green. Eklenen
+    looplar sayesinde kup dondurulebilir.
+
+    Start koordinati: (1,6)
+
+    Goal
+    koordinati: (22,6)
+
+    Renkli kilitler: YellowButton (7,3) link=Y21 face=Purple;
+    YellowButton (16,9) link=G21 face=Red; YellowDoor (20,6) link=G21 face=Red; YellowDoor
+    (14,6) link=Y21 face=Purple
+
+    PressurePlate requiredFace bilgisi: Yok
+
+    ToggleBridge
+    bilgisi: Yok
+
+    OneTimeTile koordinatlari: Yok
+
+    IceSlide rotalari: Yok
+
+    GreenJump
+    ve JumpLanding koordinatlari: Jump Yok; Landing Yok
+
+    RedBreakable koordinatlari:
+    Yok
+
+    Gelistirici test cozum rotasi: Right, Right, Right, Right, Down, Down,
+    Down, Right, Right, Right, Right, Up, Up, Up, Right, Right, Right, Right, Up,
+    Up, Up, Right, Right, Right, Right, Right, Down, Down, Down, Right, Right, Right,
+    Right
+
+'
+  verifiedSolution: Right, Right, Right, Right, Down, Down, Down, Right, Right, Right,
+    Right, Up, Up, Up, Right, Right, Right, Right, Up, Up, Up, Right, Right, Right,
+    Right, Right, Down, Down, Down, Right, Right, Right, Right

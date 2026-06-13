@@ -1,0 +1,1086 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_25
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_25
+  width: 35
+  height: 19
+  tileSize: 1
+  startPosition: {x: 1, y: 17}
+  requiredObjectives: 127
+  tiles:
+  - coordinate: {x: 33, y: 2}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 26, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 27, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 28, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 3}
+    tileType: 14
+    linkId: R25
+    heightLevel: 0
+    requiredFace: 2
+    plateActivationMode: 0
+    startsActive: 0
+    singleUse: 0
+    note: 
+  - coordinate: {x: 30, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 31, y: 3}
+    tileType: 8
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 32, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 33, y: 3}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 4, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 11, y: 5}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 12, y: 5}
+    tileType: 5
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 7}
+    tileType: 13
+    linkId: R25
+    heightLevel: 0
+    requiredFace: 2
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 8}
+    tileType: 14
+    linkId: B25
+    heightLevel: 1
+    requiredFace: 5
+    plateActivationMode: 0
+    startsActive: 0
+    singleUse: 0
+    note: 
+  - coordinate: {x: 17, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 18, y: 8}
+    tileType: 10
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 19, y: 8}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 20, y: 8}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 21, y: 8}
+    tileType: 12
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 26, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 27, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 28, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 10}
+    tileType: 7
+    linkId: G25
+    heightLevel: 0
+    requiredFace: 6
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 11}
+    tileType: 13
+    linkId: P25
+    heightLevel: 0
+    requiredFace: 2
+    plateActivationMode: 2
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 12}
+    tileType: 7
+    linkId: Y25
+    heightLevel: 0
+    requiredFace: 5
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 4, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 12}
+    tileType: 13
+    linkId: B25
+    heightLevel: 1
+    requiredFace: 5
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 28, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 30, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 14}
+    tileType: 6
+    linkId: Y25
+    heightLevel: 0
+    requiredFace: 5
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 8, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 9, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 14}
+    tileType: 6
+    linkId: G25
+    heightLevel: 0
+    requiredFace: 6
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 30, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 31, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 10, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 11, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 12, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 13, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 14, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 15, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 16, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 22, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 23, y: 16}
+    tileType: 15
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 24, y: 16}
+    tileType: 15
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 25, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 26, y: 16}
+    tileType: 14
+    linkId: P25
+    heightLevel: 0
+    requiredFace: 2
+    plateActivationMode: 0
+    startsActive: 0
+    singleUse: 0
+    note: 
+  - coordinate: {x: 27, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 28, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 29, y: 16}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 1, y: 17}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 2, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 3, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 4, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 5, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 6, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  - coordinate: {x: 7, y: 17}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+    requiredFace: 0
+    plateActivationMode: 0
+    startsActive: 1
+    singleUse: 0
+    note: 
+  notes: 'Level adi: Level_25
+
+    Boyut: 35x19
+
+    Zorluk: Final renk kilitleri
+
+    Mekanik
+    ozeti: Final: Yellow, Blue, Purple, Green ve Red renk zinciri tum mekaniklerle
+    birlesir. Donus looplari eklendi.
+
+    Start koordinati: (1,17)
+
+    Goal koordinati:
+    (33,2)
+
+    Renkli kilitler: YellowButton (7,14) link=Y25 face=Green; YellowDoor
+    (3,12) link=Y25 face=Green; YellowButton (29,14) link=G25 face=Purple; YellowDoor
+    (29,10) link=G25 face=Purple
+
+    PressurePlate requiredFace bilgisi: (22,11)
+    requiredFace=Blue, mode=Toggle, singleUse=False; (25,7) requiredFace=Blue, mode=ActivateOnly,
+    singleUse=False; (9,12) requiredFace=Green, mode=ActivateOnly, singleUse=False
+
+    ToggleBridge
+    bilgisi: (16,8) link=B25, startsActive=False; (26,16) link=P25, startsActive=False;
+    (29,3) link=R25, startsActive=False
+
+    OneTimeTile koordinatlari: (23,16) h0;
+    (24,16) h0
+
+    IceSlide rotalari: IceDownStart(18,8) -> IceMiddle(19,8) -> IceMiddle(20,8)
+    -> IceLanding(21,8)
+
+    GreenJump ve JumpLanding koordinatlari: Jump (31,3)
+    h0; Landing (33,3) h0
+
+    RedBreakable koordinatlari: (11,5) h0
+
+    Gelistirici
+    test cozum rotasi: Right, Right, Right, Right, Right, Right, Down, Down, Down,
+    Down, Down, Right, Right, Right, Down, Down, Down, Down, Down, Down, Down, Down,
+    Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down,
+    Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right,
+    Right, Right, Up, Up, Up, Up, Up, Up, Up, Up, Right, Right, Right, Right, Right,
+    Right, Right, Down, Down, Down, Down, Down, Down, Left, Left, Left, Left, Down,
+    Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Right,
+    Right, Right, Down
+
+'
+  verifiedSolution: Right, Right, Right, Right, Right, Right, Down, Down, Down, Down,
+    Down, Right, Right, Right, Down, Down, Down, Down, Down, Down, Down, Down, Down,
+    Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down,
+    Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right,
+    Right, Up, Up, Up, Up, Up, Up, Up, Up, Right, Right, Right, Right, Right, Right,
+    Right, Down, Down, Down, Down, Down, Down, Left, Left, Left, Left, Down, Down,
+    Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Right, Right,
+    Right, Down

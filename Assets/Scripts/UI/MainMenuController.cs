@@ -60,9 +60,9 @@ namespace CubeShift.UI
                 new Color(0.76f, 0.22f, 0.24f), ExitGame, false);
 
             levelPanel = CreatePanel(canvas.transform, "LevelSelectionPanel");
-            CreateText(levelPanel.transform, "Bölüm Seç", new Vector2(0f, 270f), new Vector2(700f, 90f), 54f);
+            CreateText(levelPanel.transform, "Bölüm Seç", new Vector2(0f, 300f), new Vector2(700f, 90f), 54f);
             CreateLevelButtons(levelPanel.transform);
-            CreateButton(levelPanel.transform, "Geri", new Vector2(0f, -285f), new Vector2(220f, 62f),
+            CreateButton(levelPanel.transform, "Geri", new Vector2(0f, -330f), new Vector2(220f, 62f),
                 new Color(0.3f, 0.34f, 0.4f), ShowHome, false);
             levelPanel.SetActive(false);
         }
@@ -73,12 +73,12 @@ namespace CubeShift.UI
             gridObject.transform.SetParent(parent, false);
             RectTransform rect = gridObject.GetComponent<RectTransform>();
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = new Vector2(0f, -5f);
-            rect.sizeDelta = new Vector2(620f, 430f);
+            rect.anchoredPosition = new Vector2(0f, -20f);
+            rect.sizeDelta = new Vector2(600f, 520f);
 
             GridLayoutGroup grid = gridObject.GetComponent<GridLayoutGroup>();
-            grid.cellSize = new Vector2(104f, 104f);
-            grid.spacing = new Vector2(24f, 22f);
+            grid.cellSize = new Vector2(78f, 78f);
+            grid.spacing = new Vector2(20f, 18f);
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             grid.constraintCount = 5;
             grid.childAlignment = TextAnchor.MiddleCenter;

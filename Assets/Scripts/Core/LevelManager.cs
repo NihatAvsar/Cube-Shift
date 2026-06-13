@@ -100,9 +100,12 @@ namespace CubeShift.Core
                 return;
             }
 
+            Debug.Log($"[LevelManager] CompleteLevel called. Required={activeLevel?.RequiredObjectives} | Completed={completedObjectives}", this);
+
             if (!CanCompleteActiveLevel())
             {
-                Debug.Log($"Goal locked. Missing objectives: {activeLevel.RequiredObjectives & ~completedObjectives}", this);
+                LevelObjective missing = activeLevel != null ? (activeLevel.RequiredObjectives & ~completedObjectives) : LevelObjective.None;
+                Debug.Log($"[LevelManager] Goal locked. Missing={missing}", this);
                 return;
             }
 

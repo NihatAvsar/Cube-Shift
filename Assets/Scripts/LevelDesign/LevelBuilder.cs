@@ -28,6 +28,9 @@ namespace CubeShift.LevelDesign
         [SerializeField] private GameObject iceSlide2Prefab;
         [SerializeField] private GameObject iceSlide3Prefab;
         [SerializeField] private GameObject iceLandingPrefab;
+        [SerializeField] private GameObject pressurePlatePrefab;
+        [SerializeField] private GameObject toggleBridgePrefab;
+        [SerializeField] private GameObject oneTimeTilePrefab;
 
         private const string GeneratedRootName = "GeneratedTiles";
 
@@ -47,6 +50,8 @@ namespace CubeShift.LevelDesign
 
             Dictionary<string, List<ButtonTile>> buttons = new();
             Dictionary<string, List<DoorTile>> doors = new();
+            Dictionary<string, List<PressurePlateTile>> plates = new();
+            Dictionary<string, List<ToggleBridgeTile>> bridges = new();
 
             foreach (LevelTileEntry entry in levelData.Tiles)
             {
@@ -62,12 +67,38 @@ namespace CubeShift.LevelDesign
                     entry.HeightLevel * levelData.TileSize - 0.1f,
                     entry.Coordinate.y * levelData.TileSize);
                 GameObject tile = Instantiate(prefab, position, Quaternion.identity, generatedRoot);
-                tile.name = $"Tile_{entry.TileType}_{entry.Coordinate.x}_{entry.Coordinate.y}";
+                tile.name = BuildTileName(entry);
                 tile.GetComponent<TileBase>()?.ConfigureGrid(entry.Coordinate, entry.HeightLevel);
                 CreateHeightSupport(tile, entry);
 
-                AddLinkedComponent(tile.GetComponent<ButtonTile>(), entry.LinkId, buttons);
-                AddLinkedComponent(tile.GetComponent<DoorTile>(), entry.LinkId, doors);
+                ButtonTile button = tile.GetComponent<ButtonTile>();
+                if (button != null)
+                {
+                    button.ConfigureRequiredFace(entry.RequiredFace);
+                    ApplyRequiredFaceTint(tile, entry.RequiredFace);
+                    AddLinkedComponent(button, entry.LinkId, buttons);
+                }
+
+                DoorTile door = tile.GetComponent<DoorTile>();
+                if (door != null)
+                {
+                    ApplyRequiredFaceTint(tile, entry.RequiredFace);
+                    AddLinkedComponent(door, entry.LinkId, doors);
+                }
+
+                PressurePlateTile plate = tile.GetComponent<PressurePlateTile>();
+                if (plate != null)
+                {
+                    plate.Configure(entry.LinkId, entry.RequiredFace, entry.PlateActivationMode, entry.SingleUse);
+                    AddLinkedComponent(plate, entry.LinkId, plates);
+                }
+
+                ToggleBridgeTile bridge = tile.GetComponent<ToggleBridgeTile>();
+                if (bridge != null)
+                {
+                    bridge.Configure(entry.LinkId, entry.StartsActive);
+                    AddLinkedComponent(bridge, entry.LinkId, bridges);
+                }
             }
 
             foreach (KeyValuePair<string, List<ButtonTile>> pair in buttons)
@@ -81,6 +112,20 @@ namespace CubeShift.LevelDesign
                 foreach (ButtonTile button in pair.Value)
                 {
                     button.SetControlledDoors(linkedDoors.ToArray());
+                }
+            }
+
+            foreach (KeyValuePair<string, List<PressurePlateTile>> pair in plates)
+            {
+                if (!bridges.TryGetValue(pair.Key, out List<ToggleBridgeTile> linkedBridges))
+                {
+                    Debug.LogError($"PressurePlate link '{pair.Key}' has no matching ToggleBridge.", this);
+                    continue;
+                }
+
+                foreach (PressurePlateTile plate in pair.Value)
+                {
+                    plate.SetControlledBridges(linkedBridges.ToArray());
                 }
             }
 
@@ -216,21 +261,12 @@ namespace CubeShift.LevelDesign
                 return false;
             }
 
-            foreach (LevelTileEntry entry in levelData.Tiles)
-            {
-                if (GetPrefab(entry.TileType) == null)
-                {
-                    Debug.LogError($"LevelBuilder is missing the {entry.TileType} prefab.", this);
-                    return false;
-                }
-            }
-
             return true;
         }
 
         private GameObject GetPrefab(LevelTileType type)
         {
-            return type switch
+            GameObject prefab = type switch
             {
                 LevelTileType.Normal => normalTilePrefab,
                 LevelTileType.Start => startTilePrefab,
@@ -244,8 +280,96 @@ namespace CubeShift.LevelDesign
                 LevelTileType.IceDownStart => iceSlide1Prefab,
                 LevelTileType.IceMiddle => iceSlide2Prefab != null ? iceSlide2Prefab : iceSlide3Prefab,
                 LevelTileType.IceLanding => iceLandingPrefab,
+                LevelTileType.PressurePlate => pressurePlatePrefab,
+                LevelTileType.ToggleBridge => toggleBridgePrefab,
+                LevelTileType.OneTime => oneTimeTilePrefab,
                 _ => null
             };
+
+#if UNITY_EDITOR
+            if (prefab == null)
+            {
+                prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(GetDefaultPrefabPath(type));
+            }
+#endif
+
+            return prefab;
+        }
+
+#if UNITY_EDITOR
+        private static string GetDefaultPrefabPath(LevelTileType type)
+        {
+            return type switch
+            {
+                LevelTileType.PressurePlate => "Assets/Prefabs/Tiles/PressurePlateTile.prefab",
+                LevelTileType.ToggleBridge => "Assets/Prefabs/Tiles/ToggleBridgeTile.prefab",
+                LevelTileType.OneTime => "Assets/Prefabs/Tiles/OneTimeTile.prefab",
+                _ => string.Empty
+            };
+        }
+#endif
+
+        private static void ApplyRequiredFaceTint(GameObject tile, RequiredCubeFace requiredFace)
+        {
+            if (tile == null || requiredFace == RequiredCubeFace.Any)
+            {
+                return;
+            }
+
+            Color color = FaceColor(requiredFace);
+            Renderer[] renderers = tile.GetComponentsInChildren<Renderer>();
+            foreach (Renderer tileRenderer in renderers)
+            {
+                if (tileRenderer == null)
+                {
+                    continue;
+                }
+
+#if UNITY_EDITOR
+                Material material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(FaceMaterialPath(requiredFace));
+                if (material != null)
+                {
+                    tileRenderer.sharedMaterial = material;
+                    continue;
+                }
+#endif
+                Material instance = tileRenderer.material;
+                instance.color = color;
+            }
+        }
+
+        private static Color FaceColor(RequiredCubeFace face)
+        {
+            return face switch
+            {
+                RequiredCubeFace.White => Color.white,
+                RequiredCubeFace.Blue => new Color(0.1f, 0.35f, 1f),
+                RequiredCubeFace.Red => new Color(1f, 0.12f, 0.1f),
+                RequiredCubeFace.Yellow => new Color(1f, 0.82f, 0.08f),
+                RequiredCubeFace.Green => new Color(0.16f, 0.82f, 0.28f),
+                RequiredCubeFace.Purple => new Color(0.55f, 0.2f, 0.95f),
+                _ => Color.white
+            };
+        }
+
+        private static string FaceMaterialPath(RequiredCubeFace face)
+        {
+            return face switch
+            {
+                RequiredCubeFace.White => "Assets/Materials/Player/Face_White.mat",
+                RequiredCubeFace.Blue => "Assets/Materials/Player/Face_Blue.mat",
+                RequiredCubeFace.Red => "Assets/Materials/Player/Face_Red.mat",
+                RequiredCubeFace.Yellow => "Assets/Materials/Player/Face_Yellow.mat",
+                RequiredCubeFace.Green => "Assets/Materials/Player/Face_Green.mat",
+                RequiredCubeFace.Purple => "Assets/Materials/Player/Face_Purple.mat",
+                _ => string.Empty
+            };
+        }
+
+        private static string BuildTileName(LevelTileEntry entry)
+        {
+            string link = string.IsNullOrWhiteSpace(entry.LinkId) ? "" : $"_{entry.LinkId}";
+            return $"Tile_{entry.TileType}{link}_{entry.Coordinate.x}_{entry.Coordinate.y}_h{entry.HeightLevel}";
         }
 
         private static void AddLinkedComponent<T>(

@@ -14,7 +14,10 @@ namespace CubeShift.LevelDesign
         JumpLanding,
         IceDownStart,
         IceMiddle,
-        IceLanding
+        IceLanding,
+        PressurePlate,
+        ToggleBridge,
+        OneTime
     }
 
     [System.Flags]
@@ -24,6 +27,9 @@ namespace CubeShift.LevelDesign
         RedBreakable = 1 << 0,
         YellowButton = 1 << 1,
         GreenJump = 1 << 2,
-        IceSlide = 1 << 3
+        IceSlide = 1 << 3,
+        PressurePlate = 1 << 4,
+        ToggleBridge = 1 << 5,
+        OneTime = 1 << 6
     }
 }

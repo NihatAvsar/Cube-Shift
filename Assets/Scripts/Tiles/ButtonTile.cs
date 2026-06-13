@@ -19,6 +19,7 @@ namespace CubeShift.Tiles
 
         [Header("Activation Rules")]
         [SerializeField] private bool requireYellowBottomFace;
+        [SerializeField] private RequiredCubeFace requiredFace = RequiredCubeFace.Any;
         [SerializeField] private bool triggerOnce = true;
 
         [Header("Visual Feedback")]
@@ -37,6 +38,7 @@ namespace CubeShift.Tiles
         private Coroutine feedbackRoutine;
 
         public bool HasActivated => hasActivated;
+        public RequiredCubeFace RequiredFace => requiredFace;
         public override TileEffectType EffectType => TileEffectType.Button;
 
         private void Awake()
@@ -52,7 +54,7 @@ namespace CubeShift.Tiles
                 return;
             }
 
-            if (!requireYellowBottomFace || player.BottomFace == CubeFace.Yellow)
+            if (MatchesRequiredFace(player.BottomFace))
             {
                 hasActivated = true;
                 LevelManager.Instance?.RegisterObjective(LevelObjective.YellowButton);
@@ -62,13 +64,18 @@ namespace CubeShift.Tiles
                 return;
             }
 
-            Debug.Log($"Yellow button rejected. Current bottom face: {player.BottomFace}.", this);
+            Debug.Log($"Button rejected. Required face: {GetEffectiveRequiredFace()}, current bottom face: {player.BottomFace}.", this);
             if (feedbackRoutine != null)
             {
                 StopCoroutine(feedbackRoutine);
             }
             feedbackRoutine = StartCoroutine(ShowRejectedFeedback());
             onRejected?.Invoke();
+        }
+
+        public void ConfigureRequiredFace(RequiredCubeFace newRequiredFace)
+        {
+            requiredFace = newRequiredFace;
         }
 
         public void ResetButton()
@@ -91,6 +98,23 @@ namespace CubeShift.Tiles
                     door.Open();
                 }
             }
+        }
+
+        private bool MatchesRequiredFace(CubeFace bottomFace)
+        {
+            RequiredCubeFace effectiveRequiredFace = GetEffectiveRequiredFace();
+            return effectiveRequiredFace == RequiredCubeFace.Any
+                || effectiveRequiredFace.ToString() == bottomFace.ToString();
+        }
+
+        private RequiredCubeFace GetEffectiveRequiredFace()
+        {
+            if (requiredFace != RequiredCubeFace.Any)
+            {
+                return requiredFace;
+            }
+
+            return requireYellowBottomFace ? RequiredCubeFace.Yellow : RequiredCubeFace.Any;
         }
 
         private IEnumerator ShowRejectedFeedback()

@@ -14,6 +14,7 @@ namespace CubeShift.Tiles
         [SerializeField, Min(0)] private int heightLevel;
 
         public bool Walkable => walkable;
+        public bool IsWalkable => walkable;
         public Vector2Int GridPosition => gridPosition;
         public int HeightLevel => heightLevel;
         public virtual TileEffectType EffectType => TileEffectType.None;
@@ -21,6 +22,11 @@ namespace CubeShift.Tiles
         public virtual bool CanPlayerEnter(PlayerCubeController player)
         {
             return walkable;
+        }
+
+        public virtual bool CanEnter(PlayerCubeController player)
+        {
+            return CanPlayerEnter(player);
         }
 
         public virtual void OnPlayerLanded(PlayerCubeController player)
@@ -38,10 +44,19 @@ namespace CubeShift.Tiles
         {
         }
 
+        public virtual void OnPlayerLeft(PlayerCubeController player)
+        {
+        }
+
         public void ConfigureGrid(Vector2Int position, int level)
         {
             gridPosition = position;
             heightLevel = Mathf.Max(0, level);
+        }
+
+        protected void SetWalkable(bool value)
+        {
+            walkable = value;
         }
     }
 }
