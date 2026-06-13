@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_06
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_06
+  width: 22
+  height: 13
+  tileSize: 1
+  startPosition: {x: 20, y: 1}
+  requiredObjectives: 15
+  tiles:
+  - coordinate: {x: 15, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 16, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 17, y: 1}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 18, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 19, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 20, y: 1}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 18, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 3}
+    tileType: 5
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 18, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 1, y: 5}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 5}
+    tileType: 8
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 4, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 10, y: 5}
+    tileType: 12
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 11, y: 5}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 12, y: 5}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 13, y: 5}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 14, y: 5}
+    tileType: 10
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 15, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 1, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 10, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 1, y: 7}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 7}
+    tileType: 7
+    linkId: Gate06
+    heightLevel: 1
+  - coordinate: {x: 10, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 10, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 6, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 9}
+    tileType: 6
+    linkId: Gate06
+    heightLevel: 0
+  - coordinate: {x: 9, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  notes: "Ters U rotas\u0131; sa\u011Fdan ba\u015Flayan oyuncu y\xFCksek ice hatt\u0131n\u0131
+    ge\xE7ip alt avludan kap\u0131ya geri d\xF6ner.\n\nSpecial tiles:\n- Start: (20,
+    1, h0)\n- Goal: (1, 7, h0)\n- RedBreakable: (17, 1, h0)\n- BreakableExit: (15,
+    3, h1)\n- YellowButton: (8, 9, h0)\n- YellowDoor: (5, 7, h1)\n- GreenJumpUp:
+    (3, 5, h1)\n- JumpLanding: (1, 5, h0)\n- IceDownStart: (14, 5, h1)\n- IceMiddle:
+    (13, 5, h1)\n- IceMiddle: (12, 5, h1)\n- IceMiddle: (11, 5, h1)\n- IceLanding:
+    (10, 5, h1)\n\nVerified solution inputs: 27"
+  verifiedSolution: Left, Left, Left, Left, Left, Up, Up, Up, Up, Left, Up, Up, Up,
+    Up, Left, Left, Left, Left, Left, Down, Down, Down, Down, Left, Left, Up, Up

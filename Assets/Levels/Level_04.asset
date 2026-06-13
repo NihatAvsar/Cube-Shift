@@ -1,0 +1,272 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_04
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_04
+  width: 26
+  height: 16
+  tileSize: 1
+  startPosition: {x: 24, y: 3}
+  requiredObjectives: 15
+  tiles:
+  - coordinate: {x: 18, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 19, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 20, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 22, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 24, y: 3}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 18, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 5}
+    tileType: 7
+    linkId: Gate03
+    heightLevel: 0
+  - coordinate: {x: 16, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 17, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 18, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 22, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 16, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 16, y: 7}
+    tileType: 6
+    linkId: Gate03
+    heightLevel: 0
+  - coordinate: {x: 17, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 18, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 19, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 20, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 16, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 19, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 20, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 22, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 9}
+    tileType: 12
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 9}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 9}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 9}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 9}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 9}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 9}
+    tileType: 10
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 11}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 12}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 12}
+    tileType: 8
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 12}
+    tileType: 5
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 14}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+  notes: "26x16 zor final remix. Level 3 yap\u0131s\u0131n\u0131n yatay aynas\u0131d\u0131r;
+    yakla\u015F\u0131m y\xF6nleri ve k\xFCp rotas\u0131 tersine \xE7evrilmi\u015Ftir.\n\nSpecial
+    tiles:\n- Start: (24, 3, h0)\n- Goal: (5, 14, h0)\n- RedBreakable: (6, 11, h0)\n-
+    BreakableExit: (6, 12, h0)\n- YellowButton: (16, 7, h0)\n- YellowDoor: (15, 5,
+    h0)\n- GreenJumpUp: (4, 12, h0)\n- JumpLanding: (2, 12, h0)\n- IceDownStart:
+    (12, 9, h0)\n- IceMiddle: (11, 9, h0)\n- IceMiddle: (10, 9, h0)\n- IceMiddle:
+    (9, 9, h0)\n- IceMiddle: (8, 9, h0)\n- IceMiddle: (7, 9, h0)\n- IceLanding: (6,
+    9, h0)\n\nVerified solution inputs: 32"
+  verifiedSolution: Left, Left, Left, Up, Up, Up, Up, Left, Left, Left, Left, Left,
+    Down, Down, Left, Left, Left, Up, Up, Up, Up, Left, Up, Up, Up, Left, Left, Up,
+    Up, Right, Right, Right

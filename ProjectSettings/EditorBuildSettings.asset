@@ -6,10 +6,46 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: c23f6af80d0b3e64fb4718365a3d7611
+  - enabled: 1
+    path: Assets/Scenes/Level_01.unity
+    guid: 63529624dd37af04091982e92a1910fd
+  - enabled: 1
+    path: Assets/Scenes/Level_02.unity
+    guid: 5ad2c615ca6092b4c807441c04da7345
+  - enabled: 1
+    path: Assets/Scenes/Level_03.unity
+    guid: 1205f914d73b5504da417363f1c35905
+  - enabled: 1
+    path: Assets/Scenes/Level_04.unity
+    guid: e813fa8562c445240b72232726e76303
+  - enabled: 1
+    path: Assets/Scenes/Level_05.unity
+    guid: 50dbe0bc4c6f8ef4fb0287f95dfa0fc3
+  - enabled: 1
+    path: Assets/Scenes/Level_06.unity
+    guid: 4c85a25c217ef61428406d01d33f21c9
+  - enabled: 1
+    path: Assets/Scenes/Level_07.unity
+    guid: 61f61554d894afe459ea79abd3fa9ab4
+  - enabled: 1
+    path: Assets/Scenes/Level_08.unity
+    guid: 74e322ef789514a4f9a93f2d61f8e339
+  - enabled: 1
+    path: Assets/Scenes/Level_09.unity
+    guid: 39e9e8cada058b440ba84de86026fd48
+  - enabled: 1
+    path: Assets/Scenes/Level_10.unity
+    guid: 4456e75c4f7ccc040860e41f7bbe101b
+  - enabled: 1
     path: Assets/Scenes/CubeShift_MVP_Test.unity
     guid: 93e838086563e61498497e0c2908627d
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/CubeShift_Mechanics_Test.unity
+    guid: aa041f1533cff9f4f8b9394e6e6a719c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

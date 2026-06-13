@@ -10,8 +10,18 @@ namespace CubeShift.Tiles
     public abstract class TileBase : MonoBehaviour
     {
         [SerializeField] private bool walkable = true;
+        [SerializeField] private Vector2Int gridPosition;
+        [SerializeField, Min(0)] private int heightLevel;
 
         public bool Walkable => walkable;
+        public Vector2Int GridPosition => gridPosition;
+        public int HeightLevel => heightLevel;
+        public virtual TileEffectType EffectType => TileEffectType.None;
+
+        public virtual bool CanPlayerEnter(PlayerCubeController player)
+        {
+            return walkable;
+        }
 
         public virtual void OnPlayerLanded(PlayerCubeController player)
         {
@@ -26,6 +36,12 @@ namespace CubeShift.Tiles
 
         protected virtual void HandlePlayerLanded(PlayerCubeController player)
         {
+        }
+
+        public void ConfigureGrid(Vector2Int position, int level)
+        {
+            gridPosition = position;
+            heightLevel = Mathf.Max(0, level);
         }
     }
 }

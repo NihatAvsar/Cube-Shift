@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_05
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_05
+  width: 20
+  height: 12
+  tileSize: 1
+  startPosition: {x: 1, y: 1}
+  requiredObjectives: 15
+  tiles:
+  - coordinate: {x: 1, y: 1}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 1}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 3}
+    tileType: 5
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 6, y: 5}
+    tileType: 6
+    linkId: Gate05
+    heightLevel: 1
+  - coordinate: {x: 7, y: 5}
+    tileType: 10
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 8, y: 5}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 9, y: 5}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 10, y: 5}
+    tileType: 12
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 12, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 15, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 15, y: 9}
+    tileType: 7
+    linkId: Gate05
+    heightLevel: 1
+  - coordinate: {x: 16, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 17, y: 9}
+    tileType: 8
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 19, y: 9}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 19, y: 10}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+  notes: "T\u0131rman\u0131\u015F\u0131 tan\u0131tan zikzak rota; y\xFCksek ice k\xF6pr\xFCs\xFCnden
+    al\xE7ak avluya ve ikinci y\xFCksek kap\u0131ya ge\xE7ilir.\n\nSpecial tiles:\n-
+    Start: (1, 1, h0)\n- Goal: (19, 10, h0)\n- RedBreakable: (4, 1, h0)\n- BreakableExit:
+    (5, 3, h1)\n- YellowButton: (6, 5, h1)\n- YellowDoor: (15, 9, h1)\n- GreenJumpUp:
+    (17, 9, h1)\n- JumpLanding: (19, 9, h0)\n- IceDownStart: (7, 5, h1)\n- IceMiddle:
+    (8, 5, h1)\n- IceMiddle: (9, 5, h1)\n- IceLanding: (10, 5, h1)\n\nVerified solution
+    inputs: 22"
+  verifiedSolution: Right, Right, Right, Right, Up, Up, Up, Up, Right, Right, Up,
+    Up, Right, Right, Right, Right, Right, Up, Up, Right, Right, Up

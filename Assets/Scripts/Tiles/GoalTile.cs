@@ -10,6 +10,7 @@ namespace CubeShift.Tiles
     public sealed class GoalTile : TileBase
     {
         [SerializeField] private LevelManager levelManager;
+        public override TileEffectType EffectType => TileEffectType.Goal;
 
         private void Awake()
         {

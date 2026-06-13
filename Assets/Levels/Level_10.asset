@@ -1,0 +1,353 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_10
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_10
+  width: 30
+  height: 17
+  tileSize: 1
+  startPosition: {x: 1, y: 15}
+  requiredObjectives: 15
+  tiles:
+  - coordinate: {x: 9, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 5}
+    tileType: 6
+    linkId: Gate10
+    heightLevel: 0
+  - coordinate: {x: 10, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 23, y: 5}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 21, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 22, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 23, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 24, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 25, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 6}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 7}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 9}
+    tileType: 7
+    linkId: Gate10
+    heightLevel: 1
+  - coordinate: {x: 20, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 9}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 3, y: 10}
+    tileType: 12
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 4, y: 10}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 10}
+    tileType: 11
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 6, y: 10}
+    tileType: 10
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 7, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 12, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 10}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 7, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 12, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 11}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 12}
+    tileType: 5
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 12, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 13, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 14, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 15, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 16, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 17, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 18, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 19, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 20, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 26, y: 12}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 5, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 16, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 26, y: 13}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 27, y: 13}
+    tileType: 8
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 29, y: 13}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 16, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 29, y: 14}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 1, y: 15}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 15}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 16, y: 15}
+    tileType: 1
+    linkId: 
+    heightLevel: 1
+  - coordinate: {x: 29, y: 15}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+  notes: "Final zikzak; bat\u0131 ice teras\u0131, merkez kap\u0131 kulesi, uzun
+    do\u011Fu ini\u015Fi ve y\xFCksek final jump b\xF6lgesinden olu\u015Fur.\n\nSpecial
+    tiles:\n- Start: (1, 15, h0)\n- Goal: (29, 15, h0)\n- RedBreakable: (5, 15, h0)\n-
+    BreakableExit: (7, 12, h1)\n- YellowButton: (9, 5, h0)\n- YellowDoor: (12, 9,
+    h1)\n- GreenJumpUp: (27, 13, h1)\n- JumpLanding: (29, 13, h0)\n- IceDownStart:
+    (6, 10, h1)\n- IceMiddle: (5, 10, h1)\n- IceMiddle: (4, 10, h1)\n- IceLanding:
+    (3, 10, h1)\n\nVerified solution inputs: 63"
+  verifiedSolution: Right, Right, Right, Right, Right, Right, Down, Down, Down, Down,
+    Down, Left, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right,
+    Right, Right, Right, Right, Up, Up, Up, Up, Up, Up, Up, Right, Right, Right,
+    Right, Right, Right, Right, Right, Down, Down, Down, Down, Down, Down, Right,
+    Right, Right, Right, Right, Right, Up, Up, Up, Up, Up, Up, Up, Right, Up, Up

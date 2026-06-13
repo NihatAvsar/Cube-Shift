@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63730f2875763d64291bf177d46883cb, type: 3}
+  m_Name: Level_01
+  m_EditorClassIdentifier: Assembly-CSharp::CubeShift.LevelDesign.LevelData
+  levelName: Level_01
+  width: 18
+  height: 11
+  tileSize: 1
+  startPosition: {x: 1, y: 1}
+  requiredObjectives: 15
+  tiles:
+  - coordinate: {x: 1, y: 1}
+    tileType: 2
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 2, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 1}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 1}
+    tileType: 6
+    linkId: Gate01
+    heightLevel: 0
+  - coordinate: {x: 6, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 2}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 3}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 3, y: 4}
+    tileType: 5
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 4, y: 4}
+    tileType: 4
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 5, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 6, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 7, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 8, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 9, y: 4}
+    tileType: 10
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 10, y: 4}
+    tileType: 11
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 11, y: 4}
+    tileType: 12
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 12, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 13, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 4}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 5}
+    tileType: 8
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 7}
+    tileType: 9
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 14, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 15, y: 8}
+    tileType: 1
+    linkId: 
+    heightLevel: 0
+  - coordinate: {x: 16, y: 8}
+    tileType: 7
+    linkId: Gate01
+    heightLevel: 0
+  - coordinate: {x: 17, y: 8}
+    tileType: 3
+    linkId: 
+    heightLevel: 0
+  notes: "18x11 orta seviye. Red yan kolu, yatay ice koridoru, dikey jump ve kap\u0131
+    \xF6ncesi geri d\xF6n\xFC\u015Fl\xFC YellowButton i\xE7erir.\n\nSpecial tiles:\n-
+    Start: (1, 1, h0)\n- Goal: (17, 8, h0)\n- RedBreakable: (4, 4, h0)\n- BreakableExit:
+    (3, 4, h0)\n- YellowButton: (11, 1, h0)\n- YellowDoor: (16, 8, h0)\n- GreenJumpUp:
+    (14, 5, h0)\n- JumpLanding: (14, 7, h0)\n- IceDownStart: (9, 4, h0)\n- IceMiddle:
+    (10, 4, h0)\n- IceLanding: (11, 4, h0)\n\nVerified solution inputs: 29"
+  verifiedSolution: Right, Right, Right, Right, Right, Up, Up, Up, Left, Left, Right,
+    Right, Right, Right, Right, Down, Down, Down, Up, Up, Up, Right, Right, Right,
+    Up, Up, Right, Right, Right

@@ -38,12 +38,14 @@ namespace CubeShift.Player
         private bool isMoving;
         private bool isFalling;
         private readonly RaycastHit[] groundHits = new RaycastHit[MaxGroundHits];
+        private Vector2Int lastMoveDirection;
 
         public bool IsMoving => isMoving;
         public bool IsFalling => isFalling;
         public bool CanReceiveInput => !isMoving && !isFalling && (levelManager == null || !levelManager.IsTransitioning);
         public CubeFace BottomFace => faceTracker != null ? faceTracker.CurrentBottomFace : CubeFace.White;
         public CubeFaceTracker FaceTracker => faceTracker;
+        public Vector2Int LastMoveDirection => lastMoveDirection;
 
         private void Awake()
         {
@@ -64,13 +66,28 @@ namespace CubeShift.Player
 
         public bool TryMove(Vector2Int gridDirection)
         {
+            return TryStartMove(gridDirection, 1, true);
+        }
+
+        public bool TryForcedMove(Vector2Int gridDirection, int stepCount = 1, bool evaluateIntermediateTiles = true)
+        {
+            return TryStartMove(gridDirection, Mathf.Max(1, stepCount), evaluateIntermediateTiles);
+        }
+
+        private bool TryStartMove(Vector2Int gridDirection, int stepCount, bool evaluateIntermediateTiles)
+        {
             if (!CanReceiveInput || !GridDirectionUtility.TryNormalize(gridDirection, out Vector2Int direction))
             {
                 return false;
             }
 
+            if (!CanEnterNextCell(direction))
+            {
+                return false;
+            }
+
             isMoving = true;
-            StartCoroutine(RollRoutine(direction));
+            StartCoroutine(MoveStepsRoutine(direction, stepCount, evaluateIntermediateTiles));
             return true;
         }
 
@@ -84,12 +101,88 @@ namespace CubeShift.Player
             EvaluateLandingTile();
         }
 
-        private IEnumerator RollRoutine(Vector2Int gridDirection)
+        public bool IsStandingOn(TileBase tile)
+        {
+            return tile != null && !isMoving && !isFalling && FindTileAt(transform.position) == tile;
+        }
+
+        public void RecheckStandingTile()
+        {
+            CheckCurrentTile();
+        }
+
+        public void ResetForLevel(Vector3 spawnPosition)
+        {
+            StopAllCoroutines();
+            isMoving = false;
+            isFalling = false;
+            lastMoveDirection = Vector2Int.zero;
+            transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
+
+            if (faceTracker != null)
+            {
+                faceTracker.ResetDefaultOrientation();
+            }
+        }
+
+        private IEnumerator MoveStepsRoutine(Vector2Int gridDirection, int stepCount, bool evaluateIntermediateTiles)
+        {
+            bool evaluatedLanding = false;
+
+            for (int step = 0; step < stepCount; step++)
+            {
+                if (!TryGetMoveTarget(gridDirection, out Vector3 targetPosition))
+                {
+                    break;
+                }
+
+                yield return RollSingleStepRoutine(gridDirection, targetPosition);
+                lastMoveDirection = gridDirection;
+
+                bool isLastStep = step == stepCount - 1;
+                if (evaluateIntermediateTiles || isLastStep)
+                {
+                    isMoving = false;
+                    EvaluateLandingTile();
+                    evaluatedLanding = true;
+
+                    // A tile effect such as IceTile or JumpTile may start the next move immediately.
+                    // In that case this routine must hand over ownership of the movement lock.
+                    if (isMoving)
+                    {
+                        yield break;
+                    }
+
+                    if (isFalling || (levelManager != null && levelManager.IsTransitioning))
+                    {
+                        yield break;
+                    }
+
+                    if (!isLastStep)
+                    {
+                        isMoving = true;
+                    }
+                }
+                else
+                {
+                    evaluatedLanding = false;
+                }
+            }
+
+            isMoving = false;
+
+            if (!evaluatedLanding && !isFalling)
+            {
+                EvaluateLandingTile();
+            }
+        }
+
+        private IEnumerator RollSingleStepRoutine(Vector2Int gridDirection, Vector3 targetPosition)
         {
             Vector3 startPosition = transform.position;
             Vector3 worldDirection = GridDirectionUtility.ToWorldDirection(gridDirection);
-            Vector3 targetPosition = startPosition + worldDirection * tileSize;
-            Vector3 pivot = CalculateRollPivot(startPosition, worldDirection);
+            float heightDelta = targetPosition.y - startPosition.y;
+            Vector3 pivot = CalculateRollPivot(startPosition, worldDirection, heightDelta);
             Vector3 rotationAxis = Vector3.Cross(Vector3.up, worldDirection).normalized;
 
             float elapsed = 0f;
@@ -114,21 +207,18 @@ namespace CubeShift.Player
                 transform.RotateAround(pivot, rotationAxis, remainingAngle);
             }
 
-            transform.position = SnapPosition(targetPosition, startPosition.y);
+            transform.position = SnapPosition(targetPosition, targetPosition.y);
             transform.rotation = SnapRotation(transform.rotation);
 
             if (faceTracker != null)
             {
                 faceTracker.Roll(gridDirection);
             }
-
-            isMoving = false;
-            EvaluateLandingTile();
         }
 
         private void EvaluateLandingTile()
         {
-            TileBase tile = FindTileBelow();
+            TileBase tile = FindTileAt(transform.position);
 
             if (tile == null)
             {
@@ -139,9 +229,36 @@ namespace CubeShift.Player
             tile.OnPlayerLanded(this);
         }
 
-        private TileBase FindTileBelow()
+        private bool CanEnterNextCell(Vector2Int direction)
         {
-            Vector3 rayOrigin = transform.position + Vector3.up * raycastStartHeight;
+            return TryGetMoveTarget(direction, out _);
+        }
+
+        private bool TryGetMoveTarget(Vector2Int direction, out Vector3 targetPosition)
+        {
+            targetPosition = transform.position + GridDirectionUtility.ToWorldDirection(direction) * tileSize;
+            TileBase targetTile = FindTileAtColumn(targetPosition);
+            if (targetTile == null)
+            {
+                targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+                return true;
+            }
+
+            float targetPlayerY = targetTile.transform.position.y + cubeSize * 0.5f + 0.1f;
+            float heightDifference = (targetPlayerY - transform.position.y) / tileSize;
+            if (heightDifference > 1.01f || heightDifference < -1.01f || !targetTile.CanPlayerEnter(this))
+            {
+                targetPosition = transform.position;
+                return false;
+            }
+
+            targetPosition = new Vector3(targetPosition.x, targetPlayerY, targetPosition.z);
+            return true;
+        }
+
+        private TileBase FindTileAt(Vector3 worldPosition)
+        {
+            Vector3 rayOrigin = worldPosition + Vector3.up * raycastStartHeight;
             int hitCount = Physics.RaycastNonAlloc(
                 rayOrigin,
                 Vector3.down,
@@ -171,6 +288,34 @@ namespace CubeShift.Player
                 {
                     closestTile = tile;
                     closestDistance = hit.distance;
+                }
+            }
+
+            return closestTile;
+        }
+
+        private TileBase FindTileAtColumn(Vector3 worldPosition)
+        {
+            Vector3 rayOrigin = new Vector3(worldPosition.x, worldPosition.y + tileSize * 2.5f, worldPosition.z);
+            int hitCount = Physics.RaycastNonAlloc(
+                rayOrigin,
+                Vector3.down,
+                groundHits,
+                tileSize * 5f,
+                groundLayer,
+                QueryTriggerInteraction.Collide);
+
+            TileBase closestTile = null;
+            float highestY = float.NegativeInfinity;
+            for (int index = 0; index < hitCount; index++)
+            {
+                TileBase tile = groundHits[index].collider != null
+                    ? groundHits[index].collider.GetComponentInParent<TileBase>()
+                    : null;
+                if (tile != null && tile.transform.position.y > highestY)
+                {
+                    highestY = tile.transform.position.y;
+                    closestTile = tile;
                 }
             }
 
@@ -218,9 +363,10 @@ namespace CubeShift.Player
             }
         }
 
-        private Vector3 CalculateRollPivot(Vector3 cubeCenter, Vector3 worldDirection)
+        private Vector3 CalculateRollPivot(Vector3 cubeCenter, Vector3 worldDirection, float heightDelta)
         {
-            return cubeCenter + (worldDirection + Vector3.down) * (cubeSize * 0.5f);
+            float verticalOffset = heightDelta > 0.01f ? cubeSize * 0.5f : -cubeSize * 0.5f;
+            return cubeCenter + worldDirection * (cubeSize * 0.5f) + Vector3.up * verticalOffset;
         }
 
         private Vector3 SnapPosition(Vector3 position, float y)
