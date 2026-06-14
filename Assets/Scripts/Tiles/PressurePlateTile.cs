@@ -15,6 +15,7 @@ namespace CubeShift.Tiles
         [SerializeField] private bool singleUse;
         [SerializeField] private bool hasBeenUsed;
         [SerializeField] private bool requirePlayerLandedFully = true;
+        [SerializeField] private bool logDebugMessages;
         [SerializeField] private ToggleBridgeTile[] controlledBridges;
         [SerializeField] private UnityEvent onActivated;
         [SerializeField] private UnityEvent onRejected;
@@ -60,13 +61,21 @@ namespace CubeShift.Tiles
 
             if (!MatchesRequiredFace(player.BottomFace))
             {
-                Debug.Log($"[PressurePlate] '{linkId}' rejected. Required={requiredFace}, PlayerFace={player.BottomFace}.", this);
+                if (logDebugMessages)
+                {
+                    Debug.Log($"[PressurePlate] '{linkId}' rejected. Required={requiredFace}, PlayerFace={player.BottomFace}.", this);
+                }
+
                 onRejected?.Invoke();
                 return;
             }
 
             hasBeenUsed = true;
-            Debug.Log($"[PressurePlate] '{linkId}' activated. PlayerFace={player.BottomFace}. Registering LevelObjective.PressurePlate.", this);
+            if (logDebugMessages)
+            {
+                Debug.Log($"[PressurePlate] '{linkId}' activated. PlayerFace={player.BottomFace}. Registering LevelObjective.PressurePlate.", this);
+            }
+
             LevelManager.Instance?.RegisterObjective(LevelObjective.PressurePlate);
             foreach (ToggleBridgeTile bridge in controlledBridges)
             {

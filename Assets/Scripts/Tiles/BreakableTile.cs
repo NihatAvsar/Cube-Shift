@@ -64,6 +64,7 @@ namespace CubeShift.Tiles
             }
 
             isBroken = true;
+            JuiceEffectsManager.Instance.SpawnTileBreakParticles(transform.position);
             LevelManager.Instance?.RegisterObjective(LevelObjective.RedBreakable);
             onBroken?.Invoke();
             StartCoroutine(BlinkAndRestoreRoutine());

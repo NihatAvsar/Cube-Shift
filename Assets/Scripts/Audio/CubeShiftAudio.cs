@@ -1,28 +1,59 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace CubeShift.Audio
 {
     /// <summary>
-    /// Provides lightweight procedural music and effects so every scene has audio without extra imported assets.
+    /// Persistent audio hub for music state changes, saved volume settings, mute, and UI/gameplay SFX.
+    /// Existing gameplay calls through CubeShiftAudio.Instance remain supported.
     /// </summary>
     [DefaultExecutionOrder(-10000)]
     public sealed class CubeShiftAudio : MonoBehaviour
     {
         private const int SampleRate = 44100;
-        private const float MusicLoopSeconds = 12f;
+        private const float ProceduralLoopSeconds = 16f;
         private const float FallEffectSeconds = 0.55f;
+        private const string MusicVolumeKey = "CubeShift.Audio.MusicVolume";
+        private const string SfxVolumeKey = "CubeShift.Audio.SfxVolume";
+        private const string MutedKey = "CubeShift.Audio.Muted";
 
         private static CubeShiftAudio instance;
 
-        [Header("Mix")]
-        [SerializeField, Range(0f, 1f)] private float musicVolume = 0.75f;
-        [SerializeField, Range(0f, 1f)] private float effectsVolume = 0.85f;
+        [Header("Mixer (Optional)")]
+        [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private AudioMixerGroup musicMixerGroup;
+        [SerializeField] private AudioMixerGroup sfxMixerGroup;
+        [SerializeField] private string musicVolumeParameter = "MusicVolume";
+        [SerializeField] private string sfxVolumeParameter = "SFXVolume";
 
-        private AudioSource musicSource;
-        private AudioSource effectsSource;
+        [Header("Music Clips")]
+        [SerializeField] private AudioClip mainMenuMusic;
+        [SerializeField] private AudioClip levelSelectMusic;
+        [SerializeField] private AudioClip gameplayMusic;
+        [SerializeField, Min(0.05f)] private float crossfadeSeconds = 1.25f;
+
+        [Header("SFX Clips")]
+        [SerializeField] private AudioClip uiClickClip;
+        [SerializeField] private AudioClip uiBackClip;
+        [SerializeField] private AudioClip uiSelectClip;
+        [SerializeField] private AudioClip fallClip;
+
+        [Header("Defaults")]
+        [SerializeField, Range(0f, 1f)] private float defaultMusicVolume = 0.72f;
+        [SerializeField, Range(0f, 1f)] private float defaultSfxVolume = 0.86f;
+
+        private AudioSource musicSourceA;
+        private AudioSource musicSourceB;
+        private AudioSource activeMusicSource;
+        private AudioSource sfxSource;
         private AudioListener fallbackListener;
-        private float nextMusicCheckTime;
+        private Coroutine crossfadeRoutine;
+        private MusicState currentMusicState = MusicState.MainMenu;
+        private float musicVolume;
+        private float sfxVolume;
+        private bool muted;
 
         public static CubeShiftAudio Instance
         {
@@ -32,6 +63,10 @@ namespace CubeShift.Audio
                 return instance;
             }
         }
+
+        public float MusicVolume => musicVolume;
+        public float SfxVolume => sfxVolume;
+        public bool Muted => muted;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void EnsureExists()
@@ -62,9 +97,10 @@ namespace CubeShift.Audio
 
             instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadSettings();
             CreateSources();
             EnsureAudibleListener();
-            StartMusic();
+            ApplyVolumes();
         }
 
         private void OnEnable()
@@ -77,81 +113,312 @@ namespace CubeShift.Audio
             SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
+        private void Start()
+        {
+            PlayMusicForScene(SceneManager.GetActiveScene());
+        }
+
+        public void PlayMusicState(MusicState state, bool instant = false)
+        {
+            currentMusicState = state;
+            AudioClip clip = GetClipForState(state);
+            if (clip == null)
+            {
+                clip = CreateProceduralMusicLoop(state);
+            }
+
+            CrossfadeTo(clip, instant ? 0f : crossfadeSeconds);
+        }
+
+        public void SetMusicVolume(float value)
+        {
+            musicVolume = Mathf.Clamp01(value);
+            SaveSettings();
+            ApplyVolumes();
+        }
+
+        public void SetSfxVolume(float value)
+        {
+            sfxVolume = Mathf.Clamp01(value);
+            SaveSettings();
+            ApplyVolumes();
+        }
+
+        public void SetMuted(bool value)
+        {
+            muted = value;
+            SaveSettings();
+            ApplyVolumes();
+        }
+
+        public void ToggleMute()
+        {
+            SetMuted(!muted);
+        }
+
+        public void PlayUIClick()
+        {
+            PlaySfx(uiClickClip != null ? uiClickClip : CreateToneClip("UI Click", 680f, 0.08f, 0.18f));
+        }
+
+        public void PlayUIBack()
+        {
+            PlaySfx(uiBackClip != null ? uiBackClip : CreateToneClip("UI Back", 360f, 0.11f, 0.16f));
+        }
+
+        public void PlayUISelect()
+        {
+            PlaySfx(uiSelectClip != null ? uiSelectClip : CreateToneClip("UI Select", 920f, 0.1f, 0.14f));
+        }
+
         public void PlayFall()
         {
-            if (effectsSource == null)
-            {
-                CreateSources();
-            }
-
-            EnsureAudibleListener();
-            effectsSource.PlayOneShot(CreateFallClip(), effectsVolume);
+            PlaySfx(fallClip != null ? fallClip : CreateFallClip());
         }
 
-        private void Update()
+        public void PlayRoll()
         {
-            if (Time.unscaledTime < nextMusicCheckTime)
+            PlaySfx(CreateRollClip());
+        }
+
+        public void PlayWin()
+        {
+            PlaySfx(CreateWinClip());
+        }
+
+        private static AudioClip CreateRollClip()
+        {
+            float duration = 0.08f;
+            int sampleCount = Mathf.CeilToInt(SampleRate * duration);
+            float[] samples = new float[sampleCount];
+            for (int index = 0; index < sampleCount; index++)
+            {
+                float progress = index / (float)sampleCount;
+                float envelope = Mathf.Sin(progress * Mathf.PI) * (1f - progress);
+                float time = index / (float)SampleRate;
+                float freq = Mathf.Lerp(120f, 60f, progress);
+                samples[index] = Mathf.Sin(Mathf.PI * 2f * freq * time) * envelope * 0.55f;
+            }
+
+            AudioClip clip = AudioClip.Create("Cube Roll", sampleCount, 1, SampleRate, false);
+            clip.SetData(samples, 0);
+            return clip;
+        }
+
+        private static AudioClip CreateWinClip()
+        {
+            float duration = 0.8f;
+            int sampleCount = Mathf.CeilToInt(SampleRate * duration);
+            float[] samples = new float[sampleCount];
+            float[] frequencies = new float[] { 261.63f, 329.63f, 392.00f, 523.25f };
+            for (int index = 0; index < sampleCount; index++)
+            {
+                float time = index / (float)SampleRate;
+                float sum = 0f;
+                for (int n = 0; n < frequencies.Length; n++)
+                {
+                    float noteStartTime = n * 0.12f;
+                    if (time >= noteStartTime)
+                    {
+                        float noteTime = time - noteStartTime;
+                        float noteEnvelope = Mathf.Max(0f, 1f - noteTime * 2.2f);
+                        sum += Mathf.Sin(Mathf.PI * 2f * frequencies[n] * noteTime) * noteEnvelope * 0.25f;
+                    }
+                }
+                samples[index] = sum;
+            }
+
+            AudioClip clip = AudioClip.Create("Victory Fanfare", sampleCount, 1, SampleRate, false);
+            clip.SetData(samples, 0);
+            return clip;
+        }
+
+        public void PlaySfx(AudioClip clip, float volumeScale = 1f)
+        {
+            if (clip == null || muted)
             {
                 return;
             }
 
-            nextMusicCheckTime = Time.unscaledTime + 1f;
+            CreateSources();
             EnsureAudibleListener();
-            StartMusic();
-        }
-
-        private void CreateSources()
-        {
-            if (musicSource == null)
-            {
-                musicSource = gameObject.AddComponent<AudioSource>();
-                musicSource.loop = true;
-                musicSource.playOnAwake = false;
-                musicSource.volume = musicVolume;
-                musicSource.spatialBlend = 0f;
-            }
-
-            if (effectsSource == null)
-            {
-                effectsSource = gameObject.AddComponent<AudioSource>();
-                effectsSource.loop = false;
-                effectsSource.playOnAwake = false;
-                effectsSource.spatialBlend = 0f;
-            }
-        }
-
-        private void StartMusic()
-        {
-            if (musicSource == null)
-            {
-                CreateSources();
-            }
-
-            if (musicSource.isPlaying)
-            {
-                return;
-            }
-
-            if (musicSource.clip == null)
-            {
-                musicSource.clip = CreateMusicLoop();
-            }
-
-            musicSource.volume = musicVolume;
-            musicSource.Play();
+            sfxSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale) * sfxVolume);
         }
 
         private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             EnsureAudibleListener();
-            StartMusic();
+            PlayMusicForScene(scene);
+        }
+
+        private void PlayMusicForScene(Scene scene)
+        {
+            if (scene.name.StartsWith("Level_"))
+            {
+                PlayMusicState(MusicState.Gameplay);
+                return;
+            }
+
+            PlayMusicState(MusicState.MainMenu);
+        }
+
+        private void CreateSources()
+        {
+            if (musicSourceA == null)
+            {
+                musicSourceA = gameObject.AddComponent<AudioSource>();
+                ConfigureMusicSource(musicSourceA);
+            }
+
+            if (musicSourceB == null)
+            {
+                musicSourceB = gameObject.AddComponent<AudioSource>();
+                ConfigureMusicSource(musicSourceB);
+            }
+
+            if (activeMusicSource == null)
+            {
+                activeMusicSource = musicSourceA;
+            }
+
+            if (sfxSource == null)
+            {
+                sfxSource = gameObject.AddComponent<AudioSource>();
+                sfxSource.loop = false;
+                sfxSource.playOnAwake = false;
+                sfxSource.spatialBlend = 0f;
+                sfxSource.outputAudioMixerGroup = sfxMixerGroup;
+            }
+        }
+
+        private void ConfigureMusicSource(AudioSource source)
+        {
+            source.loop = true;
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+            source.outputAudioMixerGroup = musicMixerGroup;
+        }
+
+        private void CrossfadeTo(AudioClip clip, float duration)
+        {
+            CreateSources();
+            if (activeMusicSource.clip == clip && activeMusicSource.isPlaying)
+            {
+                activeMusicSource.volume = EffectiveMusicVolume();
+                return;
+            }
+
+            if (crossfadeRoutine != null)
+            {
+                StopCoroutine(crossfadeRoutine);
+            }
+
+            crossfadeRoutine = StartCoroutine(CrossfadeRoutine(clip, duration));
+        }
+
+        private IEnumerator CrossfadeRoutine(AudioClip nextClip, float duration)
+        {
+            AudioSource from = activeMusicSource;
+            AudioSource to = activeMusicSource == musicSourceA ? musicSourceB : musicSourceA;
+
+            to.clip = nextClip;
+            to.time = 0f;
+            to.volume = 0f;
+            to.Play();
+
+            float startFromVolume = from.isPlaying ? from.volume : 0f;
+            float targetVolume = EffectiveMusicVolume();
+            if (duration <= 0f)
+            {
+                from.Stop();
+                from.volume = 0f;
+                to.volume = targetVolume;
+                activeMusicSource = to;
+                crossfadeRoutine = null;
+                yield break;
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                float eased = Mathf.SmoothStep(0f, 1f, t);
+                from.volume = Mathf.Lerp(startFromVolume, 0f, eased);
+                to.volume = Mathf.Lerp(0f, targetVolume, eased);
+                yield return null;
+            }
+
+            from.Stop();
+            from.volume = 0f;
+            to.volume = targetVolume;
+            activeMusicSource = to;
+            crossfadeRoutine = null;
+        }
+
+        private AudioClip GetClipForState(MusicState state)
+        {
+            return state switch
+            {
+                MusicState.MainMenu => mainMenuMusic,
+                MusicState.LevelSelect => levelSelectMusic != null ? levelSelectMusic : mainMenuMusic,
+                MusicState.Gameplay => gameplayMusic,
+                _ => mainMenuMusic
+            };
+        }
+
+        private void LoadSettings()
+        {
+            musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, defaultMusicVolume);
+            sfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, defaultSfxVolume);
+            muted = PlayerPrefs.GetInt(MutedKey, 0) == 1;
+        }
+
+        private void SaveSettings()
+        {
+            PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
+            PlayerPrefs.SetFloat(SfxVolumeKey, sfxVolume);
+            PlayerPrefs.SetInt(MutedKey, muted ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        private void ApplyVolumes()
+        {
+            float music = EffectiveMusicVolume();
+            if (activeMusicSource != null)
+            {
+                activeMusicSource.volume = music;
+            }
+
+            if (sfxSource != null)
+            {
+                sfxSource.volume = muted ? 0f : sfxVolume;
+            }
+
+            SetMixerVolume(musicVolumeParameter, musicVolume);
+            SetMixerVolume(sfxVolumeParameter, sfxVolume);
+        }
+
+        private float EffectiveMusicVolume()
+        {
+            return muted ? 0f : musicVolume;
+        }
+
+        private void SetMixerVolume(string parameter, float linearVolume)
+        {
+            if (audioMixer == null || string.IsNullOrWhiteSpace(parameter))
+            {
+                return;
+            }
+
+            float value = muted ? 0.0001f : Mathf.Clamp(linearVolume, 0.0001f, 1f);
+            audioMixer.SetFloat(parameter, Mathf.Log10(value) * 20f);
         }
 
         private void EnsureAudibleListener()
         {
-            AudioListener[] listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.None);
+            AudioListener[] listeners = FindObjectsByType<AudioListener>(FindObjectsInactive.Exclude);
             bool hasOtherActiveListener = false;
-
             foreach (AudioListener listener in listeners)
             {
                 if (listener != null && listener != fallbackListener && listener.enabled && listener.gameObject.activeInHierarchy)
@@ -169,32 +436,50 @@ namespace CubeShift.Audio
             fallbackListener.enabled = !hasOtherActiveListener;
         }
 
-        private static AudioClip CreateMusicLoop()
+        private static AudioClip CreateProceduralMusicLoop(MusicState state)
         {
-            int sampleCount = Mathf.CeilToInt(SampleRate * MusicLoopSeconds);
+            int sampleCount = Mathf.CeilToInt(SampleRate * ProceduralLoopSeconds);
             float[] samples = new float[sampleCount];
-            int[] notes = { 0, 3, 7, 10, 7, 3, 5, 8, 12, 8, 5, 3 };
-            float baseFrequency = 196f;
+            int[] mainNotes = state == MusicState.Gameplay
+                ? new[] { 0, 2, 7, 9, 7, 2, -3, 2 }
+                : new[] { 0, 4, 7, 11, 7, 4, 2, 9 };
+            float baseFrequency = state == MusicState.Gameplay ? 164.81f : 196f;
+            float pulseRate = state == MusicState.LevelSelect ? 1.35f : 1.05f;
 
             for (int index = 0; index < sampleCount; index++)
             {
                 float time = index / (float)SampleRate;
-                float beat = time * 2f;
-                int noteIndex = Mathf.FloorToInt(beat) % notes.Length;
+                float beat = time * pulseRate;
+                int noteIndex = Mathf.FloorToInt(beat) % mainNotes.Length;
                 float noteProgress = beat - Mathf.Floor(beat);
-                float frequency = baseFrequency * Mathf.Pow(2f, notes[noteIndex] / 12f);
-                float padFrequency = frequency * 0.5f;
-                float envelope = Mathf.SmoothStep(0f, 1f, Mathf.Min(noteProgress * 5f, 1f))
-                    * (1f - Mathf.SmoothStep(0.72f, 1f, noteProgress));
+                float frequency = baseFrequency * Mathf.Pow(2f, mainNotes[noteIndex] / 12f);
+                float envelope = Mathf.SmoothStep(0f, 1f, Mathf.Min(noteProgress * 4f, 1f))
+                    * (1f - Mathf.SmoothStep(0.62f, 1f, noteProgress));
 
-                float lead = Mathf.Sign(Mathf.Sin(Mathf.PI * 2f * frequency * time)) * envelope * 0.22f;
-                float pad = Mathf.Sin(Mathf.PI * 2f * padFrequency * time) * 0.18f;
-                float shimmer = Mathf.Sin(Mathf.PI * 2f * frequency * 2f * time) * envelope * 0.06f;
-
-                samples[index] = (lead + pad + shimmer) * 0.7f;
+                float pad = Mathf.Sin(Mathf.PI * 2f * frequency * 0.5f * time) * 0.18f;
+                float glass = Mathf.Sin(Mathf.PI * 2f * frequency * 1.5f * time) * envelope * 0.07f;
+                float pulse = Mathf.Sin(Mathf.PI * 2f * frequency * time) * envelope * 0.11f;
+                samples[index] = (pad + glass + pulse) * 0.72f;
             }
 
-            AudioClip clip = AudioClip.Create("Cube Shift Music Loop", sampleCount, 1, SampleRate, false);
+            AudioClip clip = AudioClip.Create($"Cube Shift {state} Procedural Loop", sampleCount, 1, SampleRate, false);
+            clip.SetData(samples, 0);
+            return clip;
+        }
+
+        private static AudioClip CreateToneClip(string name, float frequency, float seconds, float gain)
+        {
+            int sampleCount = Mathf.CeilToInt(SampleRate * seconds);
+            float[] samples = new float[sampleCount];
+            for (int index = 0; index < sampleCount; index++)
+            {
+                float progress = index / (float)sampleCount;
+                float envelope = 1f - Mathf.SmoothStep(0.15f, 1f, progress);
+                float time = index / (float)SampleRate;
+                samples[index] = Mathf.Sin(Mathf.PI * 2f * frequency * time) * envelope * gain;
+            }
+
+            AudioClip clip = AudioClip.Create(name, sampleCount, 1, SampleRate, false);
             clip.SetData(samples, 0);
             return clip;
         }
@@ -203,7 +488,6 @@ namespace CubeShift.Audio
         {
             int sampleCount = Mathf.CeilToInt(SampleRate * FallEffectSeconds);
             float[] samples = new float[sampleCount];
-
             for (int index = 0; index < sampleCount; index++)
             {
                 float progress = index / (float)sampleCount;
@@ -211,9 +495,7 @@ namespace CubeShift.Audio
                 float frequency = Mathf.Lerp(520f, 85f, progress);
                 float envelope = 1f - Mathf.SmoothStep(0.15f, 1f, progress);
                 float wobble = Mathf.Sin(Mathf.PI * 2f * 18f * time) * 0.08f;
-                float tone = Mathf.Sin(Mathf.PI * 2f * (frequency + wobble * frequency) * time);
-
-                samples[index] = tone * envelope * 0.75f;
+                samples[index] = Mathf.Sin(Mathf.PI * 2f * (frequency + wobble * frequency) * time) * envelope * 0.75f;
             }
 
             AudioClip clip = AudioClip.Create("Cube Fall", sampleCount, 1, SampleRate, false);

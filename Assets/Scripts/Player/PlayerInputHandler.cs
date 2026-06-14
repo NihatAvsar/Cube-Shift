@@ -15,12 +15,16 @@ namespace CubeShift.Player
     public sealed class PlayerInputHandler : MonoBehaviour
     {
         [SerializeField] private PlayerCubeController player;
-        [SerializeField, Min(10f)] private float swipeThreshold = 80f;
+        [SerializeField, Min(10f)] private float swipeThreshold = 55f;
         [SerializeField] private bool allowMouseSwipeInEditor = true;
+        [SerializeField] private bool safeSwipeMoves;
+        [SerializeField, Min(0f)] private float holdRepeatDelay = 0.06f;
 
         private bool pointerIsDown;
         private Vector2 pointerStartPosition;
         private Vector2 pointerLastPosition;
+        private Vector2Int heldDirection;
+        private float nextHoldMoveTime;
 
         private void Awake()
         {
@@ -28,6 +32,9 @@ namespace CubeShift.Player
             {
                 player = GetComponent<PlayerCubeController>();
             }
+
+            swipeThreshold = Mathf.Min(swipeThreshold, 55f);
+            safeSwipeMoves = false;
         }
 
         private void Update()
@@ -45,17 +52,20 @@ namespace CubeShift.Player
 
             if (TryReadKeyboardDirection(out Vector2Int keyboardDirection))
             {
-                if (player.TryMove(keyboardDirection))
-                {
-                    CancelSwipeTracking();
-                }
-
+                TryMoveFromInput(keyboardDirection);
                 return;
             }
 
             if (TryReadSwipeDirection(out Vector2Int swipeDirection))
             {
-                player.TryMove(swipeDirection);
+                if (safeSwipeMoves)
+                {
+                    player.TrySafeMove(swipeDirection);
+                }
+                else
+                {
+                    player.TryMove(swipeDirection);
+                }
             }
         }
 
@@ -67,6 +77,44 @@ namespace CubeShift.Player
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null)
             {
+                if (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame)
+                {
+                    heldDirection = Vector2Int.up;
+                    nextHoldMoveTime = 0f;
+                }
+                else if (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame)
+                {
+                    heldDirection = Vector2Int.down;
+                    nextHoldMoveTime = 0f;
+                }
+                else if (keyboard.aKey.wasPressedThisFrame || keyboard.leftArrowKey.wasPressedThisFrame)
+                {
+                    heldDirection = Vector2Int.left;
+                    nextHoldMoveTime = 0f;
+                }
+                else if (keyboard.dKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame)
+                {
+                    heldDirection = Vector2Int.right;
+                    nextHoldMoveTime = 0f;
+                }
+                else if (heldDirection == Vector2Int.zero)
+                {
+                    heldDirection = ReadHeldInputSystemDirection(keyboard);
+                }
+
+                if (heldDirection != Vector2Int.zero && IsInputSystemDirectionHeld(keyboard, heldDirection))
+                {
+                    if (Time.unscaledTime >= nextHoldMoveTime)
+                    {
+                        direction = heldDirection;
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                heldDirection = Vector2Int.zero;
+
                 if (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame)
                 {
                     direction = Vector2Int.up;
@@ -96,6 +144,44 @@ namespace CubeShift.Player
 #if ENABLE_LEGACY_INPUT_MANAGER
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
+                heldDirection = Vector2Int.up;
+                nextHoldMoveTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                heldDirection = Vector2Int.down;
+                nextHoldMoveTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                heldDirection = Vector2Int.left;
+                nextHoldMoveTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                heldDirection = Vector2Int.right;
+                nextHoldMoveTime = 0f;
+            }
+            else if (heldDirection == Vector2Int.zero)
+            {
+                heldDirection = ReadHeldLegacyDirection();
+            }
+
+            if (heldDirection != Vector2Int.zero && IsLegacyDirectionHeld(heldDirection))
+            {
+                if (Time.unscaledTime >= nextHoldMoveTime)
+                {
+                    direction = heldDirection;
+                    return true;
+                }
+
+                return false;
+            }
+
+            heldDirection = Vector2Int.zero;
+
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
                 direction = Vector2Int.up;
                 return true;
             }
@@ -121,6 +207,104 @@ namespace CubeShift.Player
 
             return false;
         }
+
+        private void TryMoveFromInput(Vector2Int direction)
+        {
+            if (player.TryMove(direction))
+            {
+                nextHoldMoveTime = Time.unscaledTime + holdRepeatDelay;
+                CancelSwipeTracking();
+            }
+        }
+
+#if ENABLE_INPUT_SYSTEM
+        private static bool IsInputSystemDirectionHeld(Keyboard keyboard, Vector2Int direction)
+        {
+            if (direction == Vector2Int.up)
+            {
+                return keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed;
+            }
+
+            if (direction == Vector2Int.down)
+            {
+                return keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed;
+            }
+
+            if (direction == Vector2Int.left)
+            {
+                return keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed;
+            }
+
+            return direction == Vector2Int.right && (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed);
+        }
+
+        private static Vector2Int ReadHeldInputSystemDirection(Keyboard keyboard)
+        {
+            if (keyboard == null)
+            {
+                return Vector2Int.zero;
+            }
+
+            if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed)
+            {
+                return Vector2Int.up;
+            }
+
+            if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed)
+            {
+                return Vector2Int.down;
+            }
+
+            if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
+            {
+                return Vector2Int.left;
+            }
+
+            return keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed ? Vector2Int.right : Vector2Int.zero;
+        }
+#endif
+
+#if ENABLE_LEGACY_INPUT_MANAGER
+        private static bool IsLegacyDirectionHeld(Vector2Int direction)
+        {
+            if (direction == Vector2Int.up)
+            {
+                return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+            }
+
+            if (direction == Vector2Int.down)
+            {
+                return Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+            }
+
+            if (direction == Vector2Int.left)
+            {
+                return Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+            }
+
+            return direction == Vector2Int.right && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
+        }
+
+        private static Vector2Int ReadHeldLegacyDirection()
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                return Vector2Int.up;
+            }
+
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                return Vector2Int.down;
+            }
+
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                return Vector2Int.left;
+            }
+
+            return Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector2Int.right : Vector2Int.zero;
+        }
+#endif
 
         private bool TryReadSwipeDirection(out Vector2Int direction)
         {

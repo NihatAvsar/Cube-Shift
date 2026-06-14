@@ -14,6 +14,7 @@ namespace CubeShift.Tiles
         [SerializeField] private bool hasBeenSteppedOn;
         [SerializeField] private bool isBroken;
         [SerializeField, Min(0f)] private float breakDelay = 0.1f;
+        [SerializeField] private bool logDebugMessages;
         [SerializeField] private UnityEvent onBroken;
 
         private Renderer[] renderers;
@@ -62,7 +63,11 @@ namespace CubeShift.Tiles
 
             isBroken = true;
             SetWalkable(false);
-            Debug.Log($"[OneTimeTile] '{name}' broken. Registering LevelObjective.OneTime.", this);
+            if (logDebugMessages)
+            {
+                Debug.Log($"[OneTimeTile] '{name}' broken. Registering LevelObjective.OneTime.", this);
+            }
+
             LevelManager.Instance?.RegisterObjective(LevelObjective.OneTime);
             SetCollidersEnabled(false);
             SetRenderersEnabled(false);

@@ -13,6 +13,16 @@ namespace CubeShift.Player
         Purple
     }
 
+    public struct CubeFaceOrientation
+    {
+        public CubeFace Top;
+        public CubeFace Bottom;
+        public CubeFace Front;
+        public CubeFace Back;
+        public CubeFace Left;
+        public CubeFace Right;
+    }
+
     /// <summary>
     /// Tracks the logical cube-face orientation independently from the visual mesh rotation.
     /// Tile mechanics can read CurrentBottomFace to decide which effect is active.
@@ -33,6 +43,29 @@ namespace CubeShift.Player
         public CubeFace CurrentBackFace => currentBackFace;
         public CubeFace CurrentLeftFace => currentLeftFace;
         public CubeFace CurrentRightFace => currentRightFace;
+
+        public CubeFaceOrientation CaptureOrientation()
+        {
+            return new CubeFaceOrientation
+            {
+                Top = currentTopFace,
+                Bottom = currentBottomFace,
+                Front = currentFrontFace,
+                Back = currentBackFace,
+                Left = currentLeftFace,
+                Right = currentRightFace
+            };
+        }
+
+        public void RestoreOrientation(CubeFaceOrientation orientation)
+        {
+            currentTopFace = orientation.Top;
+            currentBottomFace = orientation.Bottom;
+            currentFrontFace = orientation.Front;
+            currentBackFace = orientation.Back;
+            currentLeftFace = orientation.Left;
+            currentRightFace = orientation.Right;
+        }
 
         public void Roll(Vector2Int gridDirection)
         {

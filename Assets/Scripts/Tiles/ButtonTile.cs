@@ -21,6 +21,7 @@ namespace CubeShift.Tiles
         [SerializeField] private bool requireYellowBottomFace;
         [SerializeField] private RequiredCubeFace requiredFace = RequiredCubeFace.Any;
         [SerializeField] private bool triggerOnce = true;
+        [SerializeField] private bool logDebugMessages;
 
         [Header("Visual Feedback")]
         [SerializeField] private Color activatedColor = new Color(0.2f, 1f, 0.35f);
@@ -57,6 +58,7 @@ namespace CubeShift.Tiles
             if (MatchesRequiredFace(player.BottomFace))
             {
                 hasActivated = true;
+                JuiceEffectsManager.Instance.SpawnButtonPressParticles(transform.position, activatedColor);
                 LevelManager.Instance?.RegisterObjective(LevelObjective.YellowButton);
                 ShowColor(activatedColor);
                 OpenControlledDoors();
@@ -64,7 +66,11 @@ namespace CubeShift.Tiles
                 return;
             }
 
-            Debug.Log($"Button rejected. Required face: {GetEffectiveRequiredFace()}, current bottom face: {player.BottomFace}.", this);
+            if (logDebugMessages)
+            {
+                Debug.Log($"Button rejected. Required face: {GetEffectiveRequiredFace()}, current bottom face: {player.BottomFace}.", this);
+            }
+
             if (feedbackRoutine != null)
             {
                 StopCoroutine(feedbackRoutine);

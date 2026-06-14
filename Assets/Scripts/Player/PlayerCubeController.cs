@@ -41,6 +41,8 @@ namespace CubeShift.Player
         private readonly RaycastHit[] groundHits = new RaycastHit[MaxGroundHits];
         private Vector2Int lastMoveDirection;
         private TileBase currentTile;
+        private UndoState lastUndoState;
+        private bool hasUndoState;
 
         public bool IsMoving => isMoving;
         public bool IsFalling => isFalling;
@@ -48,6 +50,16 @@ namespace CubeShift.Player
         public CubeFace BottomFace => faceTracker != null ? faceTracker.CurrentBottomFace : CubeFace.White;
         public CubeFaceTracker FaceTracker => faceTracker;
         public Vector2Int LastMoveDirection => lastMoveDirection;
+        public bool CanUndo => hasUndoState && CanReceiveInput;
+
+        private struct UndoState
+        {
+            public Vector3 Position;
+            public Quaternion Rotation;
+            public CubeFaceOrientation Orientation;
+            public Vector2Int PreviousMoveDirection;
+            public TileBase Tile;
+        }
 
         private void Awake()
         {
@@ -68,17 +80,66 @@ namespace CubeShift.Player
 
         public bool TryMove(Vector2Int gridDirection)
         {
-            return TryStartMove(gridDirection, 1, true);
+            return TryStartMove(gridDirection, 1, true, true, true);
+        }
+
+        public bool TrySafeMove(Vector2Int gridDirection)
+        {
+            return TryStartMove(gridDirection, 1, true, false, true);
         }
 
         public bool TryForcedMove(Vector2Int gridDirection, int stepCount = 1, bool evaluateIntermediateTiles = true)
         {
-            return TryStartMove(gridDirection, Mathf.Max(1, stepCount), evaluateIntermediateTiles);
+            return TryStartMove(gridDirection, Mathf.Max(1, stepCount), evaluateIntermediateTiles, true, false);
         }
 
-        private bool TryStartMove(Vector2Int gridDirection, int stepCount, bool evaluateIntermediateTiles)
+        public bool UndoLastMove()
+        {
+            if (!CanUndo)
+            {
+                return false;
+            }
+
+            StopAllCoroutines();
+            NotifyTileLeft(lastUndoState.Tile);
+            transform.SetPositionAndRotation(lastUndoState.Position, lastUndoState.Rotation);
+            if (faceTracker != null)
+            {
+                faceTracker.RestoreOrientation(lastUndoState.Orientation);
+            }
+
+            isMoving = false;
+            isFalling = false;
+            lastMoveDirection = lastUndoState.PreviousMoveDirection;
+            currentTile = FindTileAt(transform.position);
+            hasUndoState = false;
+            return true;
+        }
+
+        public bool WouldFall(Vector2Int gridDirection)
+        {
+            if (!GridDirectionUtility.TryNormalize(gridDirection, out Vector2Int direction))
+            {
+                return false;
+            }
+
+            Vector3 targetPosition = transform.position + GridDirectionUtility.ToWorldDirection(direction) * tileSize;
+            return FindTileAtColumn(targetPosition) == null;
+        }
+
+        private bool TryStartMove(
+            Vector2Int gridDirection,
+            int stepCount,
+            bool evaluateIntermediateTiles,
+            bool allowUnsafeFalls,
+            bool recordUndo)
         {
             if (!CanReceiveInput || !GridDirectionUtility.TryNormalize(gridDirection, out Vector2Int direction))
+            {
+                return false;
+            }
+
+            if (!allowUnsafeFalls && WouldFall(direction))
             {
                 return false;
             }
@@ -88,8 +149,13 @@ namespace CubeShift.Player
                 return false;
             }
 
+            if (recordUndo)
+            {
+                CaptureUndoState();
+            }
+
             isMoving = true;
-            StartCoroutine(MoveStepsRoutine(direction, stepCount, evaluateIntermediateTiles));
+            StartCoroutine(MoveStepsRoutine(direction, stepCount, evaluateIntermediateTiles, recordUndo));
             return true;
         }
 
@@ -120,6 +186,7 @@ namespace CubeShift.Player
             isFalling = false;
             lastMoveDirection = Vector2Int.zero;
             currentTile = null;
+            hasUndoState = false;
             transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
 
             if (faceTracker != null)
@@ -128,7 +195,7 @@ namespace CubeShift.Player
             }
         }
 
-        private IEnumerator MoveStepsRoutine(Vector2Int gridDirection, int stepCount, bool evaluateIntermediateTiles)
+        private IEnumerator MoveStepsRoutine(Vector2Int gridDirection, int stepCount, bool evaluateIntermediateTiles, bool countAsPlayerMove)
         {
             bool evaluatedLanding = false;
 
@@ -141,6 +208,10 @@ namespace CubeShift.Player
 
                 yield return RollSingleStepRoutine(gridDirection, targetPosition);
                 lastMoveDirection = gridDirection;
+                if (countAsPlayerMove && step == 0)
+                {
+                    levelManager?.RegisterMove();
+                }
 
                 bool isLastStep = step == stepCount - 1;
                 if (evaluateIntermediateTiles || isLastStep)
@@ -213,6 +284,9 @@ namespace CubeShift.Player
             transform.position = SnapPosition(targetPosition, targetPosition.y);
             transform.rotation = SnapRotation(transform.rotation);
 
+            CubeShiftAudio.Instance.PlayRoll();
+            JuiceEffectsManager.Instance.SpawnLandingDust(targetPosition);
+
             if (faceTracker != null)
             {
                 faceTracker.Roll(gridDirection);
@@ -243,6 +317,19 @@ namespace CubeShift.Player
             }
 
             currentTile.OnPlayerLeft(this);
+        }
+
+        private void CaptureUndoState()
+        {
+            lastUndoState = new UndoState
+            {
+                Position = transform.position,
+                Rotation = transform.rotation,
+                Orientation = faceTracker != null ? faceTracker.CaptureOrientation() : default,
+                PreviousMoveDirection = lastMoveDirection,
+                Tile = currentTile
+            };
+            hasUndoState = true;
         }
 
         private bool CanEnterNextCell(Vector2Int direction)

@@ -36,6 +36,28 @@ namespace CubeShift.LevelDesign
 
         public LevelData LevelData => levelData;
 
+        private void Start()
+        {
+            if (levelData == null)
+            {
+                return;
+            }
+
+            if (levelManager == null)
+            {
+                levelManager = LevelManager.Instance != null
+                    ? LevelManager.Instance
+                    : FindAnyObjectByType<LevelManager>();
+            }
+
+            if (levelManager != null && levelManager.ActiveLevel != levelData)
+            {
+                levelManager.ConfigureLevel(levelData);
+            }
+
+            ConfigureGoalCompletionGuard();
+        }
+
         [ContextMenu("Build Level")]
         public void BuildLevel()
         {
@@ -134,6 +156,8 @@ namespace CubeShift.LevelDesign
             {
                 levelManager.ConfigureLevel(levelData);
             }
+
+            ConfigureGoalCompletionGuard();
         }
 
         private void CreateHeightSupport(GameObject tile, LevelTileEntry entry)
@@ -262,6 +286,17 @@ namespace CubeShift.LevelDesign
             }
 
             return true;
+        }
+
+        private void ConfigureGoalCompletionGuard()
+        {
+            LevelGoalCompletionGuard guard = GetComponent<LevelGoalCompletionGuard>();
+            if (guard == null)
+            {
+                guard = gameObject.AddComponent<LevelGoalCompletionGuard>();
+            }
+
+            guard.Configure(levelData, playerTransform, levelManager);
         }
 
         private GameObject GetPrefab(LevelTileType type)

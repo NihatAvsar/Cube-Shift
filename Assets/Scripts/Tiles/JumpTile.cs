@@ -13,6 +13,7 @@ namespace CubeShift.Tiles
     {
         [SerializeField, Min(2)] private int jumpDistance = 2;
         [SerializeField] private bool requireGreenBottomFace;
+        [SerializeField] private bool logDebugMessages;
 
         public override TileEffectType EffectType => TileEffectType.Jump;
 
@@ -25,7 +26,11 @@ namespace CubeShift.Tiles
             }
 
             LevelManager.Instance?.RegisterObjective(LevelObjective.GreenJump);
-            player.TryForcedMove(player.LastMoveDirection, jumpDistance, false);
+            bool startedJump = player.TryForcedMove(player.LastMoveDirection, jumpDistance, false);
+            if (!startedJump && logDebugMessages)
+            {
+                Debug.LogWarning($"Jump tile could not start a forced move. Direction={player.LastMoveDirection}, Distance={jumpDistance}", this);
+            }
         }
     }
 }
